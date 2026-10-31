@@ -1,0 +1,10 @@
+node_modules/
+.preview/
+.preview-puppeteer.json
+.superpowers/
+.artifacts/
+.env
+.env.*
+*.sqlite
+*.sqlite-*
+.DS_Store

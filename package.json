@@ -1,0 +1,22 @@
+{
+  "name": "dsh-superagent-analysis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Source-grounded Chinese analysis and offline UI illustrations of dsh-superagent-prototype",
+  "license": "MIT",
+  "engines": { "node": ">=22.19.0" },
+  "scripts": {
+    "check": "python3 tools/check.py",
+    "preview": "node tools/preview/serve.mjs",
+    "capture": "node tools/preview/capture.mjs",
+    "diagrams": "node tools/render-diagrams.mjs"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "12.0.0",
+    "esbuild": "0.25.12",
+    "playwright": "1.62.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

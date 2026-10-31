@@ -1,0 +1,21 @@
+flowchart LR
+  H["人<br/>目标 · 决策 · 验收"]
+  E["外部事件<br/>消息 · 讨论 · 状态变化"]
+  subgraph SYSTEM["持续协作系统 · 概念模型"]
+    R["协调层<br/>接收 · 判断 · 分派"]
+    T["持久任务与关系<br/>授权 · 输入 · 结果 · 订阅"]
+    W1["任务 A<br/>独立执行上下文"]
+    W2["任务 B<br/>独立执行上下文"]
+    N["人工介入与结果出口<br/>只呈现需要处理的信息"]
+    R --> T
+    T --> W1 & W2
+    W1 & W2 -->|状态与结果| T
+    T --> N
+  end
+  H -->|提出目标或补充决定| R
+  E -->|持续输入| R
+  N --> H
+  classDef primary fill:#123e56,color:#ffffff,stroke:#123e56
+  classDef state fill:#e6f4ee,color:#123e56,stroke:#42a58c
+  class R,N primary
+  class T state

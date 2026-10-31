@@ -1,0 +1,18 @@
+name: 使用与迁移问题
+description: 讨论部署路径或将机制迁移到自己的系统
+title: '[使用] '
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 目标与已有环境
+      description: 描述想复用的机制和当前系统，不提交凭据或私有数据
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 已尝试步骤与结果
+      description: 区分阅读疑问、离线演示问题和原型真实部署现象
+    validations:
+      required: true

@@ -1,0 +1,22 @@
+flowchart TB
+  A["accept：建立授权工作"] --> O["Ticket open"]
+  O --> RUN["执行中 / 排队"]
+  RUN -->|waiting| WAIT["等待新 Trigger<br/>工单保持 open"]
+  WAIT -->|符合条件的输入| RUN
+  RUN -->|提问 / blocked / failed| PERSON["需要人处理"]
+  PERSON -->|回答或重试| RUN
+  RUN -->|ready 且跟踪对象未结束| REVIEW["待审查 / 继续跟踪"]
+  REVIEW -->|反馈| RUN
+  RUN -->|ready 且无需继续跟踪| END["Ticket ended<br/>完成、合并、关闭或 dropped"]
+  REVIEW -->|满足跟踪 Thread 的关闭规则| END
+  END -->|所属讨论中的人发言<br/>且授权重新验证通过| O
+  O -->|人工停止| STOP["Ticket stopped<br/>Mandate 撤回，不再接收输入"]
+  subgraph ASSIGN["同一 Ticket 可以有多次 Assignment"]
+    P["pending"] --> R["running"] --> E["ended"]
+    E -->|重试或恢复产生下一次| P
+  end
+  O -.->|派工记录独立于业务工单| P
+  classDef primary fill:#123e56,color:#ffffff,stroke:#123e56
+  classDef state fill:#e6f4ee,color:#123e56,stroke:#42a58c
+  class O,RUN primary
+  class WAIT,END state

@@ -1,0 +1,22 @@
+name: 事实勘误
+description: 报告分析、图示或引用中的可核查问题
+title: '[勘误] '
+body:
+  - type: input
+    id: location
+    attributes:
+      label: 本文位置
+      description: 文件名、段落或图像名称
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 问题与依据
+      description: 附固定提交源码位置或官方资料，区分观察和推断
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: 建议修改

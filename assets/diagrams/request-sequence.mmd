@@ -1,0 +1,25 @@
+sequenceDiagram
+  autonumber
+  actor Human as 允许的用户
+  participant Source as GitHub Source
+  participant Engine as Engine / Store
+  participant Main as 主 Session
+  participant Worker as Worker / DSH
+  participant Out as Outbox / Channel
+  Human->>Source: 在 Issue 中提出明确请求
+  Source->>Engine: receive(Trigger)
+  Note over Engine: 去重、检查范围、保存并排入评估
+  Engine-->>Main: 持久递交候选及上下文
+  Main->>Engine: decide(accept, scope)
+  Note over Engine: 事务创建 Ticket、Mandate、Assignment、订阅
+  Engine-->>Worker: 提交后启动或恢复执行
+  Worker->>Engine: 报告进度 / 提问 / ready
+  Engine-->>Out: 持久记录符合资格的回复
+  Out-->>Human: 在原始讨论中确认、提问或交付
+  opt 相关 PR 的后续反馈
+    Source->>Engine: 评论、审查、CI 或关闭事件
+    Engine-->>Worker: 订阅 Input 或领域状态更新
+    Note over Worker: 跟进不能扩大原 Mandate
+    Worker->>Engine: 报告结果
+  end
+  Note over Human,Out: ready、PR 创建与最终合并是不同事实

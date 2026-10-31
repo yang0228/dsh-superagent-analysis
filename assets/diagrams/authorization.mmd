@@ -1,0 +1,20 @@
+flowchart TB
+  T["Source 收到事件"] --> S{"接收范围内？"}
+  S -->|否| F["记录过滤原因"]
+  S -->|是| I["稳定 ID 去重并存储<br/>订阅分发与候选处理可并行存在"]
+  I --> C["已有订阅：传递上下文<br/>不增加授权"]
+  C --> OWN{"人的跟进已有 Worker 负责？"}
+  OWN -->|是| W["Worker 按原 Mandate 处理<br/>越界则交回路由"]
+  W -->|全部负责人释放后| G
+  I -->|没有 Worker 负责的新工作| G{"门禁与当前 Policy"}
+  G -->|显式请求| E["语义路由与有效性检查"]
+  G -->|推断候选 · off| N["不接受推断工作"]
+  G -->|推断候选 · observe / auto| R["评估规则与实施方向"]
+  R -->|observe 且本会接受| O["记录 would_accept<br/>不创建推断工单"]
+  R -->|auto 且满足规则| E
+  E -->|accept| K["Ticket + Mandate<br/>固定工作范围与授权依据"]
+  E -->|ignore / unavailable| D["留下 Decision"]
+  classDef primary fill:#123e56,color:#ffffff,stroke:#123e56
+  classDef state fill:#e6f4ee,color:#123e56,stroke:#42a58c
+  class G,K primary
+  class C,O state

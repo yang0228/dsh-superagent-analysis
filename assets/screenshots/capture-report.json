@@ -1,0 +1,29 @@
+{
+  "upstream": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "dataset": "synthetic",
+  "components": "pinned upstream React App",
+  "externalRequests": [],
+  "pageErrors": [],
+  "checks": [
+    {
+      "view": "overview",
+      "readOnlyStatus": 405,
+      "requests": 3
+    },
+    {
+      "view": "ticket",
+      "readOnlyStatus": 405,
+      "requests": 3
+    },
+    {
+      "view": "policy",
+      "readOnlyStatus": 405,
+      "requests": 4
+    },
+    {
+      "view": "execution",
+      "readOnlyStatus": 405,
+      "requests": 4
+    }
+  ]
+}

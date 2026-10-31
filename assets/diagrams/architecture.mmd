@@ -1,0 +1,29 @@
+flowchart LR
+  INPUT["GitHub / 飞书<br/>外部事件"] --> SRC["Source / Passes<br/>转换、过滤与调度"]
+  PANEL["Web 面板<br/>管理 API"] --> E
+  SRC --> E
+  subgraph APP["Runtime 装配的应用服务"]
+    E["Engine<br/>领域状态与事务"]
+    A["MasterAssessor<br/>候选递交"]
+    EX["DshExecutor<br/>目录与执行管理"]
+    OUT["Outbox<br/>消息回执"]
+    EF["Effects<br/>提交后执行与重试"]
+    DB[("SQLite Store<br/>状态与待处理工作")]
+    E -->|同步事务| DB
+    E --> A & EX & OUT
+    A & EX & OUT -->|持久工作意图| EF
+    EF --> DB
+  end
+  subgraph DSH["DeepSeek Harness 提供"]
+    MAIN["主 Session<br/>语义路由"]
+    WORKER["Worker Sessions<br/>按工单独立执行"]
+  end
+  EF -->|递交候选| MAIN
+  EF -->|启动与投递| WORKER
+  MAIN -.->|决定| E
+  WORKER -.->|结构化报告| E
+  EF -->|发送回复| CH["Source Channel<br/>回到原始讨论"]
+  classDef primary fill:#123e56,color:#ffffff,stroke:#123e56
+  classDef state fill:#e6f4ee,color:#123e56,stroke:#42a58c
+  class E,EX primary
+  class DB,OUT state
