@@ -7,6 +7,7 @@ flowchart TB
   PERSON -->|回答或重试| RUN
   RUN -->|ready 且跟踪对象未结束| REVIEW["待审查 / 继续跟踪"]
   REVIEW -->|反馈| RUN
+  RUN -->|dropped：无需继续工作| END
   RUN -->|ready 且无需继续跟踪| END["Ticket ended<br/>完成、合并、关闭或 dropped"]
   REVIEW -->|满足跟踪 Thread 的关闭规则| END
   END -->|所属讨论中的人发言<br/>且授权重新验证通过| O
