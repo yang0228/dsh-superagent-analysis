@@ -74,6 +74,28 @@ prepare 可使用 `DSH_SUPERAGENT_DIR`、`DSH_SUPERAGENT_NAME`、`DSH_SUPERAGENT
 
 成功标准应包括：身份正确、授权范围正确、目录正确、修改有验证证据、回复到正确讨论。如果产生 PR，继续检查反馈是否回到原工单；PR 已创建不等于工单已验收。
 
+## 设置界面参考
+
+以下两张图使用真实上游组件与虚构配置，只展示设置位置，未连接真实平台或模型，也未创建 worktree。目录和命令应按自己的部署环境配置。
+
+<details>
+<summary><strong>评估策略：允许名单、接收规则与 observe 模式</strong></summary>
+
+[![评估策略设置：上游界面，演示数据](../assets/screenshots/policy.png)](../assets/screenshots/policy.png)
+
+`observe` 限制推断候选接单；允许用户的显式请求仍可能执行。
+
+</details>
+
+<details>
+<summary><strong>执行配置：普通并发、工作目录与 prepare</strong></summary>
+
+[![执行配置：上游界面，演示数据](../assets/screenshots/execution.png)](../assets/screenshots/execution.png)
+
+独立目录、prepare 和命令包装各有作用，不能当作 OS 沙箱。
+
+</details>
+
 ## 可选：接入飞书
 
 完成 GitHub 路径后，再按上游部署文档创建和发布 bot、配置 `lark-cli`，启用飞书 Source，选择接收群和允许用户范围。凭据只在本机或部署平台配置，不放进 Issue、聊天记录或截图。无需为了理解架构而先安装飞书。[原始部署指南][install]

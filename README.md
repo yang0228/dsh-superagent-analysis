@@ -55,38 +55,33 @@ Source 将平台消息转成 Trigger，Engine 组织授权和工单状态，主 
 | **恢复与重试** | 保存输入、派工与投递记录，支持明确范围内的重试和恢复 |
 | **配置与留痕** | 配置来源、策略、执行和提示词，并保留配置历史 |
 
-### 功能演示
+### 功能演示：一个任务如何持续推进
 
-以下图片来自**真实上游 React 组件的离线渲染**，工单、统计与配置均为演示数据，未连接真实 GitHub、飞书或模型。点击图片可查看原图。
+**同一个示例：修复 Issue #42 的登录页标题溢出。** 从需要人回答，到收到回答继续验证，始终跟踪 `Ticket demo-1`。
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <strong>概览</strong><br>
-      <sub>优先呈现需要人处理的工单与执行状态。</sub><br><br>
-      <a href="assets/screenshots/overview.png"><img src="assets/screenshots/overview.png" width="480" alt="概览：待处理工单和执行状态，上游界面、演示数据"></a>
-    </td>
-    <td width="50%" valign="top">
-      <strong>工单详情</strong><br>
-      <sub>查看授权依据、任务范围和讨论订阅。</sub><br><br>
-      <a href="assets/screenshots/ticket.png"><img src="assets/screenshots/ticket.png" width="480" alt="工单详情：授权依据和讨论订阅，上游界面、演示数据"></a>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <strong>评估与授权</strong><br>
-      <sub>理解允许名单、规则和 observe 模式。</sub><br><br>
-      <a href="assets/screenshots/policy.png"><img src="assets/screenshots/policy.png" width="480" alt="评估策略：允许名单、规则与接单模式，上游界面、演示数据"></a>
-    </td>
-    <td width="50%" valign="top">
-      <strong>执行环境</strong><br>
-      <sub>定位模型、并发、目录与准备命令。</sub><br><br>
-      <a href="assets/screenshots/execution.png"><img src="assets/screenshots/execution.png" width="480" alt="执行配置：模型、并发和工作目录，上游界面、演示数据"></a>
-    </td>
-  </tr>
-</table>
+> 图片为固定版本**真实上游 React 组件＋演示数据**，导读条由本分析项目添加。三个场景是独立静态快照，用于解释机制，未运行真实 Agent，也未连接 GitHub、飞书或模型。点击图片可放大。
 
-[深入阅读：功能条件、反馈路径与状态边界 →](docs/03-capabilities.md) · [离线预览与图片复现](tools/preview/README.md)
+#### ① 任务总览：先看哪里需要人
+
+[![任务总览：登录修复待回答、另一任务待审查，后台工作继续执行；上游界面，演示数据](assets/screenshots/overview.png)](assets/screenshots/overview.png)
+
+**看图：** 登录修复需要回答，文案修复需要审查；概览同时保留执行负载。**机制：** 把需要人处理的工作集中呈现。**可借鉴：** 将“需要你做什么”放在入口，执行细节按需打开。
+
+#### ② 授权与提问：看清范围，再介入
+
+[![同一工单的授权依据与范围确认问题：仅修复桌面布局，不修改认证逻辑；上游界面，演示数据](assets/screenshots/ticket.png)](assets/screenshots/ticket.png)
+
+**看图：** 谁提出请求、授权修什么、在哪条讨论回答。**机制：** Mandate 确定范围，Attention 记录需要人的问题。**可借鉴：** 同时保留请求来源、任务范围和待回答事项，避免新信息悄悄扩大授权。
+
+#### ③ 回答后续做：新输入回到原任务
+
+[![收到人的回答后，同一 Ticket 继续执行；展开输入记录和标识核对原请求、后续回答及工作目录；上游界面，演示数据](assets/screenshots/followup.png)](assets/screenshots/followup.png)
+
+**看图：** 状态从待回答变为执行中，原请求和新回答均已送达，Ticket 与工作目录保持一致。**机制：** 订阅把反馈送回原 Ticket，继续原 Worker 会话；本例续用当前派工。**可借鉴：** 分开建模业务任务、输入和执行尝试，收到反馈时先判断归属与授权。
+
+本例只是**开放工单收到人的回答后继续执行**，不代表任务已经验收；已结束工单的恢复和人工停止另有规则。
+
+[深入阅读：功能条件、反馈路径与状态边界 →](docs/03-capabilities.md) · [设置界面与上手](docs/05-getting-started.md#设置界面参考) · [离线预览与图片复现](tools/preview/README.md)
 
 ## 设计取舍与借鉴
 
@@ -125,7 +120,7 @@ Source 将平台消息转成 Trigger，Engine 组织授权和工单状态，主 
 | --- | --- |
 | 上游提交 | [`6337fc8`](https://github.com/deepseek-ai/dsh-superagent-prototype/commit/6337fc823ce20251c8de8085948165c81aaa701e) |
 | 核对日期 | 2026-11-01，Asia/Shanghai |
-| 图像资料 | 5 张机制图、4 张真实组件的演示数据截图 |
+| 图像资料 | 5 张机制图、5 张真实组件的演示数据截图（3 个任务场景＋2 个设置参考） |
 | 依据与范围 | [资料来源](docs/reference/sources.md) · [源码索引](docs/reference/source-map.md) · [验证记录](docs/reference/verification.md) |
 
 ## 贡献与许可

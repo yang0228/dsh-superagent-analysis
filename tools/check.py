@@ -27,6 +27,7 @@ def main():
             if label not in defined:
                 errors.append(f'{path.relative_to(ROOT)}: undefined link reference {label}')
         targets = re.findall(r'\[[^\]]*\]\(([^\s)]+)(?:\s+"[^"]*")?\)', text) + [target for name, target in definitions]
+        targets += re.findall(r'(?:href|src)="([^"]+)"', text)
         for target in targets:
             target = target.strip('<>')
             parsed = urlsplit(target)
@@ -59,7 +60,7 @@ def main():
             ET.parse(svg)
         except ET.ParseError as error:
             errors.append(f'Invalid SVG {svg.name}: {error}')
-    names = {'overview', 'ticket', 'policy', 'execution'}
+    names = {'overview', 'ticket', 'followup', 'policy', 'execution'}
     for name in names:
         path = ROOT / 'assets/screenshots' / (name + '.png')
         if not path.exists():
@@ -78,10 +79,13 @@ def main():
         if result['upstream'] != SHA or result['dataset'] != 'synthetic' or result['pageErrors'] or result['externalRequests']:
             errors.append('Capture report has wrong source, non-synthetic data, errors, or external requests')
         if {item['view'] for item in result['checks']} != names or any(item['readOnlyStatus'] != 405 for item in result['checks']):
-            errors.append('Capture report does not prove all four read-only views')
+            errors.append('Capture report does not prove all five read-only views')
+        continuity = result.get('continuity', {})
+        if any(continuity.get(key) is not True for key in ('sameDirectory', 'sameAssignment', 'unchangedMandate')) or continuity.get('ticketId') != 'demo-1' or continuity.get('sessionId') != 'worker-demo-1' or continuity.get('inputsBefore') != 1 or continuity.get('inputsAfter') != 2:
+            errors.append('Capture report lacks consistent follow-up snapshot evidence')
     if errors:
         raise SystemExit('\n'.join(errors))
-    print(f'PASS: {len(documents)} Markdown files, {links} local links, {len(citations)} unique pinned source citations, 5 rendered diagrams, 4 read-only screenshot views.')
+    print(f'PASS: {len(documents)} Markdown files, {links} local links, {len(citations)} unique pinned source citations, 5 rendered diagrams, 5 read-only screenshot views.')
     if not args.source:
         print('Source citation line ranges not checked; pass --source /path/to/upstream to include them.')
 

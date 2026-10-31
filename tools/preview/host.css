@@ -8,4 +8,6 @@
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;background:#fff;color:#223647;
 }
 *{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}.preview-label{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 42px;background:#123e56;color:#e8f3fa;font-size:13px;letter-spacing:.02em}.preview-label strong{font-size:14px;letter-spacing:.1em}.preview-foot{padding:18px 42px;border-top:1px solid #e7edf2;font-size:12px;color:#61798a;text-align:center}
-#app .dt-page{height:auto;overflow:visible;min-height:650px}#app .dt-page>.dt-column{max-width:1080px;padding-bottom:36px}
+#app .dt-page{height:auto;overflow:visible;min-height:0}#app .dt-page>.dt-column{max-width:920px;padding-bottom:36px}
+
+.preview-frame{width:100%;background:#fff}.preview-label{padding:14px 32px;font-size:12px}.preview-label strong{font-size:13px;letter-spacing:.05em}.preview-story{padding:24px 40px 22px;background:#f3f8fb;border-bottom:1px solid #dce7ee}.preview-kicker{color:#146d91;font-size:12px;font-weight:650;letter-spacing:.08em}.preview-story h1{margin:8px 0;font-size:26px;line-height:1.4;letter-spacing:.01em}.preview-story p{margin:0;font-size:14px;line-height:1.7;color:#4c6476}.preview-foot{padding:16px 40px;text-align:left;line-height:1.8;background:#f6f8fa}.preview-foot strong{display:block;color:#223647;font-size:13px}.preview-foot span{font-size:11px}#app .dt-page>.dt-column{padding-bottom:28px}

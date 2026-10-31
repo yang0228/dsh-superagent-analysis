@@ -4,26 +4,60 @@
   "components": "pinned upstream React App",
   "externalRequests": [],
   "pageErrors": [],
+  "viewport": {
+    "width": 1000,
+    "height": 720,
+    "deviceScaleFactor": 2,
+    "timezone": "Asia/Shanghai"
+  },
+  "capture": "content-bounded; ticket focused on attention and mandate",
+  "clock": "2026-10-31T12:20:00Z",
+  "continuity": {
+    "ticketId": "demo-1",
+    "sessionId": "worker-demo-1",
+    "sameDirectory": true,
+    "sameAssignment": true,
+    "unchangedMandate": true,
+    "inputsBefore": 1,
+    "inputsAfter": 2,
+    "from": "person",
+    "to": "working"
+  },
   "checks": [
     {
       "view": "overview",
       "readOnlyStatus": 405,
-      "requests": 3
+      "requests": 4,
+      "captureHeight": 823,
+      "region": "preview frame"
     },
     {
       "view": "ticket",
       "readOnlyStatus": 405,
-      "requests": 3
+      "requests": 4,
+      "captureHeight": 778,
+      "region": "header through mandate details"
+    },
+    {
+      "view": "followup",
+      "readOnlyStatus": 405,
+      "requests": 4,
+      "captureHeight": 1337,
+      "region": "preview frame"
     },
     {
       "view": "policy",
       "readOnlyStatus": 405,
-      "requests": 4
+      "requests": 4,
+      "captureHeight": 1473,
+      "region": "preview frame"
     },
     {
       "view": "execution",
       "readOnlyStatus": 405,
-      "requests": 4
+      "requests": 4,
+      "captureHeight": 1179,
+      "region": "preview frame"
     }
   ]
 }
